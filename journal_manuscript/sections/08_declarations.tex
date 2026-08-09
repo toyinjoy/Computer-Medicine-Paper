@@ -1,0 +1,31 @@
+\section*{Declarations}
+\label{sec:declarations}
+
+%% AUTHOR TO COMPLETE: every bracketed item below requires information that
+%% does not exist anywhere in the source thesis materials. None of it has
+%% been fabricated; each placeholder is left explicit so it is not mistaken
+%% for a completed statement.
+
+\paragraph{CRediT authorship contribution statement.}
+[AUTHOR TO COMPLETE. If this remains single-authored, a CRediT statement is usually unnecessary, but confirm the journal's current requirement. If a supervisor or collaborator is added as co-author -- the source document lists the supervisor as ``to be confirmed'' -- their contribution roles must be stated explicitly, e.g., Conceptualization, Methodology, Software, Formal analysis, Writing.]
+
+\paragraph{Funding.}
+[AUTHOR TO COMPLETE. No funding source, grant number, or sponsoring agency is recorded anywhere in the project materials. State the funder and grant/scholarship number, or state explicitly that no external funding was received.]
+
+\paragraph{Declaration of competing interest.}
+[AUTHOR TO COMPLETE. No conflicts are recorded, but this must be an affirmative statement, e.g., ``The authors declare that they have no known competing financial interests or personal relationships that could have appeared to influence the work reported in this paper.'']
+
+\paragraph{Ethical approval.}
+[AUTHOR TO COMPLETE -- FLAGGED AS A GAP, NOT INFERRED. No ethics-committee approval number, IRB reference, or statement of secondary-data-use authorisation for either the Vigitel extract or the COVID-19 hospital cohort appears anywhere in the source materials. \emph{Computers in Biology and Medicine} requires a statement of ethical approval (or documented exemption) for any study using human-participant health data, including secondary analysis of de-identified survey or hospital records. This must be obtained/confirmed and cited by protocol number before submission; it cannot be drafted without the underlying documentation.]
+
+\paragraph{Informed consent.}
+[AUTHOR TO COMPLETE. State whether the original data collections (Vigitel telephone survey; COVID-19 hospital records) obtained informed consent or operated under a waiver, and cite the governing protocol.]
+
+\paragraph{Data availability.}
+Vigitel is a publicly documented Brazilian national surveillance system \citep{bernal2017}; [AUTHOR TO COMPLETE the exact access route, extract version, and any data-use agreement covering the 5,000-row sample used here]. The COVID-19 hospital-mortality dataset (334 records, 34 columns) is [AUTHOR TO COMPLETE: state the source institution, whether it is restricted-access, and the data-sharing terms under which it can be described in this paper]. Neither raw dataset is included in the manuscript repository.
+
+\paragraph{Code availability.}
+Analysis code, executed notebooks, and exported result tables supporting every number reported in this paper are available in the accompanying repository, including \texttt{experiments/SepAware\_Fixed\_Lambda\_5Fold\_CV\_Study.executed.ipynb}, \texttt{experiments/sepaware\_replicated\_2k\_factorial\_anova.executed.ipynb}, \texttt{experiments/Covid\_Causal\_Filter\_Local.executed.ipynb}, and the corresponding CSV exports under \texttt{results/}. Figures are reproducible via \texttt{generate\_figures.py}. [AUTHOR TO COMPLETE: confirm the public repository URL and licence before submission, and ensure it does not contain the restricted COVID-19 records themselves.]
+
+\paragraph{Software environment.}
+Python 3.12, NumPy 1.26.4, pandas 2.2.2, scikit-learn 1.5.1, SDV 1.16.2, CatBoost 1.2.5, XGBoost 2.1.4, and statsmodels 0.14.2. CTGAN was run on CPU in the local environment. XGBoost received the same imputed numerical design matrix as a NumPy array rather than through its pandas adapter, which is a representation change only and does not alter observations, folds, preprocessing, features, labels, or model parameters. TabPFN was unavailable in the reproducible local environment; no result obtained under a different or unrecorded environment is reported as a rerun value.

@@ -1,0 +1,25 @@
+\section{Limitations and Future Work}
+\label{sec:limitations}
+
+\subsection{Threats to validity}
+\label{sec:threats}
+
+Several notebooks evolved across protocol revisions during development, and exploratory $\lambda$-grid selection can reuse information that is later reported as performance; the reproducibility audit in \ref{app:audit} identifies the authoritative reruns used for every number in this paper, but it cannot retroactively create preregistration for the exploratory stages. Composite fidelity, SI, HM, and the anchor score are engineering proxies, not direct measures of clinical realism, causal validity, patient benefit, or minority-mode coverage, and should be read as such throughout. The strongest factorial effect occurs in a single Vigitel sample, and the COVID-19 cohort contains only 334 records; \sepa{} has not been tested across sites, time periods, outcomes, generators, or substantially different imbalance ratios. Finally, one cross-validation partition and a limited set of generator seeds do not quantify the stochastic variability introduced by CTGAN training itself, and the use of multiple metrics and grid configurations increases researcher degrees of freedom unless endpoints and comparisons are prespecified, as they were only for the factorial stage.
+
+\subsection{Priorities for confirmatory work}
+\label{sec:future-studies}
+
+The following four lines of work follow directly from the rival explanations raised in Section~\ref{sec:discussion}, and we regard them as necessary before the separability effect reported here can be treated as general rather than specific to Vigitel obesity prediction with CTGAN.
+
+\emph{Separating imbalance from intrinsic class overlap.} The current design cannot distinguish whether \sepa{}'s benefit is driven by class imbalance, by class overlap, or by their interaction. Controlled semi-synthetic benchmarks in which prevalence and Bayes overlap are varied independently, together with prespecified real-data training prevalences and comparisons against random over/undersampling, SMOTE, and class weighting under identical folds, would isolate when separability is a genuine missing objective rather than a proxy for rebalancing.
+
+\emph{Confirming utility without minority-mode collapse.} The Vigitel effect needs to be confirmed across independent partition and generator seeds, additional generators (TVAE, a Gaussian-copula baseline, TabDDPM), and additional classifiers, using nested cross-validation and prespecified endpoints. Minority precision/recall/F1, AUPRC, AUROC, calibration, decision-curve utility, class-conditional fidelity, and cluster-coverage diagnostics are needed to determine whether gains reflect genuine signal recovery or the shortcut amplification and mode collapse discussed in Section~\ref{sec:alternative}.
+
+\emph{Testing causal, clinical, and privacy consistency.} A partially directed expert graph with required, forbidden, and uncertain edges, bootstrapped structure-learning stability estimates, and association-matched control anchors would isolate the incremental value of the causal framing beyond plausibility. Blinded clinician review of case- and cohort-level plausibility, together with membership-inference, attribute-inference, and rarity-stratified nearest-neighbour analyses (and differentially private variants where warranted), are needed before any clinical-realism or privacy claim can be supported.
+
+\emph{Causally constrained generation and external validation.} A generator with soft structural penalties, class-conditional guidance, and explicit diversity regularisation, benchmarked against CTGAN+\sepa{}, unconstrained diffusion, and \dacpf{}, and evaluated under temporal or cross-site distribution shift on at least one external health dataset with a different outcome and imbalance ratio, would test whether the approach generalises beyond the dataset and generator from which it emerged.
+
+\subsection{What would establish the effect as general}
+\label{sec:decision-criteria}
+
+We would consider \sepa{}'s utility advantage established only if it persists across prespecified seeds and classifiers, does not materially degrade class-conditional coverage or calibration, survives the shortcut-detection controls in Section~\ref{sec:alternative}, and transfers to external real data. Causal constraints would be retained only if they improve consistency beyond association-matched controls, and any privacy conclusion should be limited to the stated threat model and, where used, a specific differential-privacy budget. Reaching this bar requires, at minimum, the multi-seed replication, broader generator and resampling baselines, minority-specific and calibration metrics, membership/attribute-inference testing, and external or temporal validation listed above; none of these is yet available in the present study, and we report this as a limitation of scope rather than omit it. If some of these criteria are not met on further testing, the resulting boundary conditions -- knowing when separability optimisation should \emph{not} be used -- would themselves be a useful, publishable outcome.
