@@ -1,0 +1,47 @@
+\chapter{Introduction}
+\label{chap:introduction}
+
+Clinical and population-health datasets are difficult to share and model. They contain sensitive attributes, mixed numerical and categorical variables, missingness, skewed distributions, and outcomes that may be rare but clinically decisive. Synthetic tabular data promise wider access and safer collaboration, but synthesis does not guarantee privacy, fairness, or usefulness \citep{goncalves2020,hernandez2023,nanevski2026}. A generator can reproduce marginal distributions while weakening the decision boundary for a rare outcome, or improve a classifier by exaggerating relationships that do not generalise to real patients. These failures are especially consequential when the positive class represents death, disease, or an underserved population.
+
+This qualification therefore studies synthetic data as a \emph{purpose-dependent scientific object}. Statistical fidelity, predictive utility, minority-class preservation, causal plausibility, and privacy are related but non-equivalent objectives. The work began with a practical failure: changing the class counts through conventional resampling, CTGAN augmentation, or increasingly elaborate anchor-guided filtering did not produce a reliable, substantial improvement in prediction. The common feature of these attempts was that they added or removed observations without directly addressing overlap between the outcome classes.
+
+That failure changed the research question. Rather than asking only how many minority records should be generated, the thesis asks whether a generator can preserve the class-conditional structure that makes a rare outcome learnable. Explainability and neighbourhood analyses were used to investigate this possibility. They suggested that weak class separability---not imbalance alone---was a plausible limiting mechanism. This diagnosis motivated \sepa{}, which generates a broad CTGAN candidate pool and explicitly selects records according to realism, label separability, and domain-anchor compatibility.
+
+The overarching research objective is to determine whether class-conditional separability can be controlled during synthetic tabular health-data generation so as to improve performance on unseen real patients, without creating unrealistic, clinically implausible, privacy-sensitive, or artificially easy synthetic populations. The central thesis is:
+
+\begin{quote}
+For imbalanced tabular health data with overlapping outcome classes, explicitly controlling class-conditional structure can improve synthetic-to-real predictive utility, but the gain is scientifically useful only when fidelity, minority diversity, clinical plausibility, external validity, and privacy remain acceptable.
+\end{quote}
+
+The empirical programme follows that reasoning. Early imbalance and CTGAN augmentation studies establish the problem. A five-fold domain-anchored causal plausibility experiment tests whether clinically motivated filtering solves it. Diagnostic studies then examine separability and feature-space behaviour. The resulting \sepa{} formulation is evaluated first across a fixed lambda grid and then in a predeclared replicated $2^2$ factorial experiment that isolates separability pressure, anchor pressure, their interaction, and residual error. The factorial study is the most direct test of mechanism; it asks not merely whether a selected synthetic dataset performs well, but which component produces the change.
+
+\section{Research questions and hypotheses}
+
+One primary question organises the qualification:
+
+\begin{quote}
+If class separability is explicitly improved during synthetic generation, does downstream prediction on held-out real data improve without a material loss of statistical fidelity, minority diversity, clinical plausibility, or privacy?
+\end{quote}
+
+It is resolved through four subsidiary questions.
+
+\begin{enumerate}[label=\textbf{RQ\arabic*:},leftmargin=*]
+\item Why do class rebalancing and unconstrained synthetic augmentation yield limited or inconsistent gains when outcome classes overlap?
+\item Does explicit separability-aware selection improve \tstr{} utility, and is the effect robust across datasets?
+\item Which component---separability, domain anchors, or their interaction---drives any observed gain?
+\item When is improved separability a legitimate recovery of class-conditional signal, and when is it shortcut amplification or loss of difficult but real cases?
+\end{enumerate}
+
+The completed experiments test three directional hypotheses. \textbf{H1:} balancing the class counts without changing class-conditional overlap will not by itself yield a large, reliable utility gain. \textbf{H2:} positive separability pressure will increase held-out-real Macro-F1 relative to realism-only selection while leaving the measured global fidelity score broadly comparable. \textbf{H3:} the separability effect will be dataset dependent, with smaller and less stable gains when the positive class is small or heterogeneous. Two hypotheses remain for confirmatory PhD work. \textbf{H4:} moderate separability pressure will preserve more minority diversity and calibration than aggressive pressure. \textbf{H5:} uncertain, softly imposed causal constraints will distinguish clinically plausible separation from shortcut amplification better than hard anchor filtering.
+
+\section{Contribution to knowledge at qualification}
+
+The current contribution is a testable reframing of synthetic augmentation. The work identifies class-conditional learnability as an objective distinct from class balance and global fidelity; implements that objective as a transparent post-generation selection rule; and uses a factorial design to attribute utility changes to separability and anchor pressures rather than to a single favourable configuration. The result is deliberately conditional rather than universal: the strong Vigitel effect and the unstable COVID-19 effect define when the idea appears promising and where it can fail. The thesis will contribute general knowledge only after the remaining studies establish whether the effect survives stronger baselines, repeated seeds, external datasets, clinical review, and privacy attacks.
+
+\section{Scope and evidence policy}
+
+All numerical claims in Chapters~\ref{chap:completed} and \ref{chap:discussion} come from executed five-fold notebooks and their exported tables. Protocol-only, superseded single-split, or failed notebooks are identified in Appendix~\ref{app:audit} and are not presented as completed evidence. Results from different regimes are not pooled. In particular, standalone synthetic substitution (TSTR), real-plus-synthetic augmentation, and internal synthetic cross-validation answer different questions and are labelled separately.
+
+\section{Document organisation}
+
+Chapter~\ref{chap:literature} derives the gap from work on generation, imbalance, evaluation, causality, and privacy. Chapter~\ref{chap:data} describes the data and leakage controls. Chapter~\ref{chap:methodology} presents the empirical sequence and \sepa{} formulation. Chapter~\ref{chap:completed} reports the evidence in the order in which each result motivates the next question. Chapter~\ref{chap:discussion} evaluates the proposed mechanism and its alternatives. Chapter~\ref{chap:future} converts the unresolved threats into four connected studies. Chapter~\ref{chap:conclusion} states the present and prospective contributions.

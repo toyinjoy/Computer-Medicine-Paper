@@ -1,0 +1,31 @@
+\chapter{Repository Evidence Audit}
+\label{app:audit}
+
+\begin{longtable}{>{\raggedright\arraybackslash}p{.29\textwidth}>{\raggedright\arraybackslash}p{.18\textwidth}>{\raggedright\arraybackslash}p{.45\textwidth}}
+\caption{Status of research artefacts used during manuscript reconstruction.}\label{tab:audit}\\
+\toprule
+Artefact & Status & Manuscript treatment\\
+\midrule
+\endfirsthead
+\toprule
+Artefact & Status & Manuscript treatment\\
+\midrule
+\endhead
+Older dataset-specific fixed-lambda notebooks & Superseded single-split studies & Excluded from numerical claims because they use one 75/25 split.\\
+Combined SepAware fixed-lambda notebook & Executed five-fold study & Authority for fold-level fixed-lambda comparisons.\\
+Protocol-audited $2^2$ CV notebook & Executed & Used for earlier condition summaries and correlation interpretation.\\
+Replicated factorial ANOVA notebook with results & Latest executed experiment & Authority for the 40 fold responses, ANOVA, effects, and diagnostics.\\
+Factorial assumption-test script/CSVs & Executed after latest notebook & Authority for expanded residual tests and classical-versus-blocked sensitivity analysis.\\
+COVID DACPF raw and summary CSVs & Executed & Authority for augmentation results in Table~\ref{tab:dacpf}.\\
+TabPFN augmentation notebook & Failed dependency output & Protocol only; no result claim.\\
+Unexecuted causal-filter notebooks & Incomplete protocol & Discussed as development history or future work, not evidence.\\
+Cluster-then-augment notebook & No authoritative exported result located & Excluded from numerical results.\\
+Business analytics notebooks & Out of scientific scope & Excluded.\\
+\bottomrule
+\end{longtable}
+
+\section{Result-authority decisions}
+
+The newly rerun factorial experiment differs numerically from earlier protocol-audited slide notes because CTGAN is stochastic even under the recorded software stack. This manuscript uses the new executed observations consistently. The classical unblocked Aula~5 decomposition treats folds as replications and assigns COVID 90.01\% error and Vigitel 16.92\% error. The primary manuscript uses the blocked model, which separates fold variation and yields 81.53\% and 3.59\%, respectively. Both calculations exist in the repository; their denominators answer different questions.
+
+No Real+Synthetic results are created for SepAware because its completed factorial protocol evaluates standalone synthetic datasets. Conversely, DACPF is explicitly an augmentation experiment and is labelled Real+Synthetic. Missing AUPRC, calibrated probabilities, formal membership inference, and external validation are not imputed.

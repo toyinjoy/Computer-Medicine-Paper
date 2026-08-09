@@ -1,0 +1,12 @@
+.gh-auth/
+Main.aux
+Main.bbl
+Main.blg
+Main.lof
+Main.log
+Main.lot
+Main.out
+Main.toc
+Main.synctex.gz
+*.fls
+*.fdb_latexmk

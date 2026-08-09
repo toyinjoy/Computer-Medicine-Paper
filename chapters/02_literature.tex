@@ -1,0 +1,39 @@
+\chapter{Literature Review and Research Gap}
+\label{chap:literature}
+
+\section{From statistical synthesis to deep generators}
+
+Synthetic microdata predate deep learning. Multiple imputation and probabilistic graphical models generate records from estimated conditional distributions and remain attractive because their assumptions can be inspected \citep{raghunathan2003}. Copulas provide efficient dependence modelling but may struggle when discrete, continuous, multimodal, and rare-event variables interact nonlinearly \citep{wang2021}.
+
+GANs formulate generation as an adversarial game between a generator and discriminator \citep{goodfellow2014}. MedGAN adapted this idea to high-dimensional discrete patient records using an autoencoder \citep{choi2017}. CTGAN then addressed mixed-type tables through mode-specific normalisation, conditional vectors, and training-by-sampling \citep{xu2019}. These mechanisms are directly relevant to health tables with skewed continuous variables and imbalanced categories, which motivated CTGAN as the common generator in the completed experiments.
+
+Variational autoencoders optimise a likelihood-related lower bound and offer an explicit latent representation \citep{kingma2014}. TVAE was evaluated alongside CTGAN in the same tabular synthesis framework \citep{xu2019}. More recently, diffusion models iteratively denoise samples. TabDDPM showed that separate diffusion treatments for numerical and categorical attributes can outperform several GAN/VAE baselines on general tabular benchmarks \citep{kotelnikov2023}. These results motivate diffusion baselines, but they do not establish superiority for small, imbalanced clinical datasets.
+
+\section{Health-data synthesis and evaluation}
+
+Health synthesis studies repeatedly conclude that no single metric establishes usefulness or safety. Evaluations should cover resemblance, downstream utility, and privacy \citep{goncalves2020,hernandez2023,pezoulas2024}. Recent large comparisons likewise find dataset- and metric-dependent rankings and a fidelity/utility--privacy trade-off \citep{hernandez2025,nanevski2026}. The systematic review of structured synthetic EHRs documents continuing challenges in longitudinal structure, rare events, reproducibility, and privacy evaluation \citep{ghosheh2024}.
+
+Univariate fidelity measures whether each synthetic column resembles its real counterpart; pairwise measures assess correlations or contingency relationships; multivariate distinguishability tests whether a classifier can separate real from synthetic records. None is sufficient for a downstream clinical task. A dataset can score well globally because majority-class records dominate its statistics while poorly representing the minority class. Conversely, aggressive selection can improve classification by producing easy prototypes rather than a faithful population.
+
+TSTR directly probes whether relations learned from synthetic data transfer to real observations. It is stronger than testing on synthetic data, because an internally self-consistent synthetic distribution can still be wrong. However, TSTR is not a privacy test and does not show that synthetic estimates are inferentially unbiased. Privacy must be evaluated separately through nearest-record, membership-inference, attribute-inference, or formal differential-privacy analyses \citep{yale2019,dwork2006}. Synthetic data are not anonymous by construction; a high-capacity generator can memorise training records.
+
+\section{Class imbalance and rare clinical outcomes}
+
+Class imbalance changes both training and evaluation. Accuracy can remain high when minority recall is poor; macro-F1 gives equal weight to classes, and AUPRC is often more informative than AUROC when the positive outcome is rare \citep{saito2015}. Conventional resampling includes random oversampling and SMOTE \citep{chawla2002}, but interpolated or generated points can distort heterogeneous minority subgroups. Reviews of imbalanced learning emphasise that sampling, costs, thresholds, and evaluation must be matched to the application \citep{he2009}.
+
+Synthetic augmentation may increase sample count without increasing information. The central question is therefore not whether the generated dataset is balanced, but whether the minority conditional distribution $p(x\mid y=1)$ and its overlap with $p(x\mid y=0)$ are preserved well enough to improve performance on held-out real cases. SepAware addresses this gap by selecting label-plausible candidates while explicitly retaining a realism term and target-class counts.
+
+\section{Causal structure and generative modelling}
+
+Associational fidelity does not imply causal fidelity. A DAG represents qualitative assumptions about data-generating relations, while causal effects additionally require identification assumptions that cannot be learned from observational data alone \citep{pearl2009,spirtes2000}. Continuous optimisation methods such as NOTEARS enable scalable DAG discovery \citep{zheng2018}, but discovered graphs can be unstable with small samples, mixed variables, measurement error, and hidden confounding.
+
+CausalGAN demonstrated that a known causal graph can organise adversarial generation \citep{kocaoglu2018}; causal-effect VAEs illustrate how generative latent-variable models can encode causal assumptions \citep{louizos2017}. These methods motivate causally constrained synthesis, but domain validation is essential. The completed DACPF experiment is therefore described as \emph{causal plausibility filtering}, not causal identification: it rewards consistency with predeclared class-anchor patterns but does not prove causal effects.
+
+\section{Privacy--utility tension}
+
+Differential privacy bounds the effect of any single training record on an algorithm's output \citep{dwork2006}. In Computers in Biology and Medicine, LDP-GAN explicitly combines local differential privacy with medical-record synthesis and evaluates both utility and privacy \citep{kim2024ldpgan}. A recent oncology framework in the same journal evaluates and selects synthetic datasets for survival prediction across several quality dimensions \citep{christoforou2025}. These studies indicate the journal's interest in medically motivated synthesis accompanied by rigorous downstream and privacy evaluation rather than model novelty alone.
+
+\section{Research gap}
+
+The literature leaves a practical gap at the intersection of four issues: rare clinical outcomes, transparent post-generation control, causal plausibility, and cross-dataset validation. Existing generators optimise distribution learning; imbalance methods optimise prediction; causal generators often assume a trusted graph; evaluation frameworks diagnose outputs after the fact. This PhD asks whether these components can be connected into an auditable pipeline in which each selection pressure has a measurable effect, and in which improved TSTR utility must survive tests of fidelity, subgroup structure, causal consistency, external validation, and privacy.
+

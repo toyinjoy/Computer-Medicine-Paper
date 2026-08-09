@@ -1,0 +1,73 @@
+\chapter{Interpretation, Rival Explanations, and Validity}
+\label{chap:discussion}
+
+\section{Interpretation of the proposed mechanism}
+
+Across the SepAware lambda grid, composite fidelity changes only modestly while SI and HM change substantially. In the factorial study, enabling separability increases Vigitel Macro-F1 by approximately 0.10, while anchor pressure contributes essentially nothing. The strongest empirically supported contribution is therefore not a universally optimal generator. It is evidence, in one dataset, that a transparent post-generation objective controls a utility-relevant dimension that the current global fidelity score obscures. The factorial result strengthens this interpretation because the Vigitel change follows the separability factor and not the anchor factor.
+
+The COVID-19 results constrain that claim. The fixed-lambda study suggests a possible average improvement, but its interval is wide; in the predeclared factorial analysis, treatment effects are small relative to fold variation and are not significant. A scalar margin may be ineffective when minority mortality cases are heterogeneous, or may select easy but unrepresentative prototypes. Stronger separation can mean clearer signal, but it can also mean removal of difficult patients, comorbidity interactions, or label ambiguity.
+
+\section{Alternative explanation: an artificially easier problem}
+
+The principal challenge to SepAware is also the most important scientific question for the thesis. Higher TSTR performance may arise because selection recovers class-conditional signal that CTGAN generated but did not concentrate. It may instead arise because selection removes borderline observations, narrows minority modes, or amplifies a relationship peculiar to the training fold. Held-out-real testing prevents a wholly synthetic self-consistency result, but does not distinguish these mechanisms. Boundary-stratified errors, calibration, real-minority cluster retention, label-permutation controls, and suspected-shortcut masking are required. If gains occur only for easy cases or disappear after shortcut control, the contribution must be narrowed.
+
+\section{Minority preservation and clinical realism}
+
+Preserving prevalence is necessary but insufficient. A synthetic dataset can reproduce 83 deaths while collapsing distinct death phenotypes into one mode. SI and HM detect geometric cohesion but cannot determine whether clinically important subgroups survive. Evaluation must therefore include class-conditional distributions and dependencies, minority precision and recall, AUPRC, subgroup coverage, calibration, and within-positive-class diversity.
+
+The DACPF results reinforce this interpretation. Disease filtering improves both available classifiers relative to standard CTGAN, whereas age-only and combined filtering do not. Anchors may be redundant, misdirected, or too aggressively weighted. Domain knowledge should constrain implausibility without forcing every patient towards a class centroid. Blinded clinician review of cases and cohort relationships is needed because geometric scores cannot detect every incoherent clinical combination.
+
+\section{Does causal information add value?}
+
+The present experiments do not identify causal effects. Anchor--target associations can reflect confounding, selection, measurement, or coding. A DAG learned from 334 COVID-19 records would also be unstable without priors and bootstrap analysis. Moreover, DACPF does not demonstrate value from causal knowledge as such: disease anchors help in some comparisons, age and combined filters do not, and no association-matched non-causal control was included. The defensible interpretation is narrower. Causal hypotheses can supply auditable constraints and diagnostics; their incremental value must be isolated against matched associational controls and graph uncertainty.
+
+\section{Privacy implications}
+
+Nearest-neighbour distances and absence of exact duplicates are sanity checks, not evidence of anonymity. SepAware prefers candidates close to the real manifold, which may improve utility and increase disclosure risk. Membership and attribute inference, nearest-record distributions stratified by rarity, and differentially private variants are therefore required before a release claim. Privacy is an optimisation axis, not an assumed consequence of synthesis.
+
+\section{Statistical limitations}
+
+Five-fold cross-validation supplies five performance estimates, but the training sets overlap. Within-fold factorial conditions also share a generator and candidate pool. Blocking by fold is appropriate for paired contrasts, yet conventional ANOVA $p$-values remain approximate. Repeated nested cross-validation across independent partition and generator seeds is required for confirmatory inference. Vigitel's Breusch--Pagan result further supports robust or bootstrap intervals.
+
+The factorial endpoint averages CatBoost and XGBoost within fold. This simplifies attribution but can mask a treatment-by-classifier interaction. A confirmatory model should retain classifier as a repeated factor and report prespecified classifier-specific contrasts. The Vigitel $p$-value is conditional on this experimental design; it is not the probability that SepAware will succeed on a new dataset.
+
+\section{Threats to validity}
+
+\paragraph{Internal validity.} Several notebooks evolved across protocol revisions, and exploratory lambda selection can reuse information later reported as performance. The evidence audit identifies the authoritative reruns but cannot retroactively create preregistration.
+
+\paragraph{Construct validity.} Composite quality, SI, HM, and anchor scores are engineering proxies. They do not directly measure clinical realism, causal validity, patient benefit, or minority-mode coverage.
+
+\paragraph{External validity.} The strongest factorial effect occurs in one Vigitel sample; COVID-19 contains only 334 records. SepAware has not been tested across sites, periods, outcomes, generators, or substantially different imbalance ratios.
+
+\paragraph{Conclusion validity.} One cross-validation partition and limited generator seeds do not quantify synthesis stochasticity. Multiple metrics and configurations increase researcher degrees of freedom unless endpoints and comparisons are prespecified.
+
+\paragraph{Privacy validity.} Empirical similarity diagnostics are not a formal guarantee and do not simulate an adversary with auxiliary clinical information.
+
+\section[Defence questions]{Questions expected at qualification defence}
+
+\begin{description}[leftmargin=*,style=nextline]
+\item[Is SepAware merely making classification easier?]
+Possibly. Held-out-real evaluation is necessary but insufficient. Boundary-stratified errors, calibration, mode coverage, shortcut controls, and external validation are the decisive tests.
+
+\item[Why separability rather than imbalance?]
+The claim is comparative, not exclusive. SepAware preserves class counts across factorial conditions, yet Vigitel utility changes sharply with separability pressure. This isolates a within-experiment separability effect; a controlled imbalance-by-overlap study is still needed for generalisation.
+
+\item[Are the gains robust?]
+Not yet at thesis level. Vigitel is consistent across the recorded folds, whereas COVID-19 is not. Independent partition, synthesis, and classifier seeds are required.
+
+\item[Does SepAware generalise?]
+No such claim is currently supported. CTGAN is the common candidate generator and the strong effect occurs in one survey dataset. Diffusion, VAE, copula, and strong resampling baselines plus external clinical datasets are necessary.
+
+\item[Does stable global fidelity rule out unrealistic data?]
+No. It shows only that the measured aggregate score changed little. It may hide minority collapse, implausible multivariate combinations, and calibration loss.
+
+\item[What does the causal component contribute?]
+At present it supplies domain-motivated hypotheses and a negative result about hard filtering, not causal validity. Its incremental value must be tested against association-matched controls.
+
+\item[Does selection affect privacy?]
+It may increase risk by preferring candidates near real records, especially rare ones. Attack-based and differential-privacy evaluation are essential.
+\end{description}
+
+\section{Present answer to the research questions}
+
+The first question is answered provisionally: augmentation alone does not resolve weak class geometry, although it can yield modest or classifier-dependent improvements. The second is answered conditionally: separability-aware selection is strongly effective for Vigitel but not demonstrated for COVID-19. The factorial experiment answers the third for Vigitel by attributing the gain to separability rather than anchors; it provides no corresponding COVID-19 attribution. The fourth remains open because clinical realism, minority coverage, shortcut behaviour, privacy, and external transfer have not yet been tested sufficiently. Chapter~\ref{chap:future} is designed to resolve that question rather than append unrelated models.

@@ -1,0 +1,62 @@
+\chapter{Research Programme to Establish Generality and Clinical Validity}
+\label{chap:future}
+
+The remaining PhD is organised as four connected studies. Each addresses a rival explanation raised by the completed work, and each supplies evidence needed by the next. The programme moves from mechanism identification, through confirmatory benchmarking and safety evaluation, to a new constrained generator and external validation.
+
+\section{Study 1: Separate imbalance from intrinsic class overlap}
+
+\textbf{Research question.} Is the benefit of SepAware caused by class imbalance, class overlap, or their interaction?
+
+\textbf{Hypothesis.} Changing prevalence will affect classifier variance and threshold behaviour, but SepAware will add utility principally when recoverable class-conditional signal exists in an overlapping minority distribution.
+
+\textbf{Method.} Construct controlled semi-synthetic benchmarks from the real feature spaces in which prevalence and Bayes overlap vary independently. On real datasets, create prespecified training prevalences by training-fold subsampling while leaving the real test distribution unchanged. Compare no resampling, random over- and undersampling, SMOTE, class weighting, standard CTGAN, and SepAware under identical folds and sample budgets.
+
+\textbf{Evaluation.} Estimate Macro-F1, minority F1, AUPRC, calibration, boundary-stratified error, and sample efficiency over repeated partition and model seeds. Fit a hierarchical interaction model for imbalance, overlap, method, classifier, and dataset.
+
+\textbf{Expected contribution.} This study will identify when separability is a genuine missing objective rather than a proxy for class rebalancing.
+
+\section{Study 2: Confirm utility without minority-mode collapse}
+
+\textbf{Research question.} Does separability-aware selection improve held-out-real minority performance across datasets, generators, classifiers, and random seeds without deleting difficult but valid cases?
+
+\textbf{Hypothesis.} Moderate class-conditional pressure will improve Macro-F1 and AUPRC when the minority distribution is learnable, whereas aggressive pressure will reduce boundary coverage, calibration, or within-class diversity.
+
+\textbf{Method.} Predeclare lambda values and endpoints; use nested five-fold cross-validation across at least ten partition seeds and independent generator seeds. Compare CTGAN, TVAE, a Gaussian-copula baseline, TabDDPM, random resampling, SMOTE, and class weighting. Apply the selector to more than one candidate generator to test whether it is generator agnostic. Evaluate TSTR and augmentation separately. Add diversity quotas or cluster coverage so that one minority phenotype cannot dominate selection.
+
+\textbf{Evaluation.} Report Macro-F1, minority precision/recall/F1, AUROC, AUPRC, calibration, decision-curve utility, class-conditional fidelity, coverage, discriminator AUC, and seed-level uncertainty. Analyse errors by distance to the real training boundary and by minority cluster. Use paired hierarchical bootstrap or mixed-effects models retaining dataset, partition, fold, generator seed, generator, and classifier.
+
+\textbf{Expected contribution.} This study will establish the reproducibility envelope and failure modes of separability-aware selection, including whether its gains reflect shortcut amplification or loss of ambiguous patients.
+
+\section{Study 3: Test causal, clinical, and privacy consistency}
+
+\textbf{Research question.} Can synthetic selection preserve a credible range of causal relations and clinical phenotypes without increasing disclosure risk?
+
+\textbf{Hypothesis.} Fidelity- or separability-only selection will preserve some pairwise associations but violate stable conditional independences, clinically reviewed constraints, or privacy thresholds; soft uncertainty-aware constraints will outperform hard anchor filters.
+
+\textbf{Method.} Construct a partially directed expert graph for each dataset, documenting required, forbidden, and uncertain edges. Bootstrap NOTEARS and constraint-based discovery on real training data to quantify edge stability. Compare causal anchors with association-matched control anchors. Define structural and conditional-independence discrepancies, and use semi-synthetic structural causal models where intervention ground truth is available.
+
+\textbf{Evaluation.} Compare synthetic-to-real graph discrepancy with real bootstrap variability. Include permuted-label and DAG-violating negative controls. Clinicians will conduct blinded case-level plausibility and cohort-relationship review. Membership inference, attribute inference, exact/near duplication, and rarity-stratified nearest-neighbour risk will assess disclosure; differentially private variants will provide privacy-budget comparisons.
+
+\textbf{Expected contribution.} The result will be an uncertainty-aware evaluation framework that separates clinical plausibility, causal consistency, and privacy from geometric separability.
+
+\section{Study 4: Causally constrained generation and external validation}
+
+\textbf{Research question.} Can a graph-informed generator improve rare-outcome utility and causal consistency across datasets and distribution shifts without sacrificing diversity or privacy?
+
+\textbf{Hypothesis.} A latent tabular diffusion model with soft structural penalties, class-conditional guidance, and diversity regularisation will outperform hard row filtering, but its advantage will narrow under external shift and stronger privacy constraints.
+
+\textbf{Method.} Extend tabular diffusion with conditional rare-outcome generation, differentiable penalties for stable graph constraints, distributional rather than pointwise anchors, and minority-diversity regularisation. Compare it with CTGAN+SepAware, TVAE, unconstrained diffusion, DACPF, and Study~1 imbalance baselines. Train on one Vigitel period or clinical source and test on another; include at least one external health dataset with a distinct outcome and imbalance ratio.
+
+\textbf{Evaluation.} Use the full Study~2 utility panel and Study~3 causal, clinical, and privacy metrics, with ablations for every constraint. Produce Pareto fronts across fidelity, utility, causal consistency, subgroup disparity, and attack success. Semi-synthetic data will support causal-truth claims; observational data will support only plausibility and transfer claims.
+
+\textbf{Expected contribution.} This study provides the thesis's central methodological and external-validity test: whether utility-aware, uncertainty-constrained synthesis generalises beyond the dataset and generator from which SepAware emerged.
+
+\section{Decision criteria and thesis-level contribution}
+
+SepAware will be considered supported only if its utility advantage persists across prespecified seeds and classifiers, does not materially degrade class-conditional coverage or calibration, survives shortcut controls, and transfers to external real data. Causal constraints will be retained only if they improve consistency beyond association-matched controls. Privacy conclusions will be limited to the stated threat model and, where used, differential-privacy budget.
+
+If these criteria are met, the contribution to knowledge will comprise: (i) evidence that separability is a controllable determinant of synthetic-to-real utility distinct from class prevalence and aggregate fidelity; (ii) a validated selection framework that balances utility with minority diversity and realism; (iii) an uncertainty-aware causal and clinical evaluation framework; and (iv) a causally constrained generative method evaluated under external shift and explicit privacy risk. If some criteria fail, the negative boundary conditions will remain a substantive contribution by showing when separability optimisation should not be used.
+
+\section{Publication pathway}
+
+The nearest publication is a rigorous cross-dataset evaluation of transparent selection guided by class separability. Its novelty is not a new GAN architecture, but controlled evidence that class-boundary preservation is independently tunable, together with factorial attribution and a clinically important failure analysis. Before submission, Study~1 and the confirmatory portion of Study~2 are essential, as are class-conditional fidelity, minority/AUPRC metrics, privacy attacks, and at least one external validation. The separate CBM readiness note records the proposed title, current support, missing experiments, and likely reviewer concerns.

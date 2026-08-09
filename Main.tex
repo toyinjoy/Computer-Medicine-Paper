@@ -1,0 +1,84 @@
+\documentclass[phdproposta,english]{ppgccufmg}
+
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{threeparttable}
+\usepackage{multirow}
+\usepackage{microtype}
+\usepackage{enumitem}
+\usepackage{float}
+\usepackage{placeins}
+\usepackage{url}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,fit}
+\usepackage[colorlinks=true,linkcolor=blue!55!black,citecolor=green!35!black,urlcolor=magenta!55!black]{hyperref}
+
+\graphicspath{{figures/}}
+\newcommand{\sepa}{\textsc{SepAware}}
+\newcommand{\tstr}{\textsc{TSTR}}
+\newcommand{\trtr}{\textsc{TRTR}}
+\newcommand{\ra}{Real$\rightarrow$Real}
+\newcommand{\sr}{Synthetic$\rightarrow$Real}
+\newcommand{\rsr}{Real+Synthetic$\rightarrow$Real}
+\newcommand{\NA}{--}
+
+\newcommand{\glossario}{
+  \chapter*{List of Abbreviations and Acronyms}
+  \begin{tabular}{ll}
+  AUPRC & Area under the precision--recall curve\\
+  AUROC & Area under the receiver-operating-characteristic curve\\
+  CTGAN & Conditional tabular generative adversarial network\\
+  DAG & Directed acyclic graph\\
+  DACPF & Domain-anchored causal plausibility filter\\
+  DP & Differential privacy\\
+  EHR & Electronic health record\\
+  GAN & Generative adversarial network\\
+  HM & Hypothesis margin\\
+  SI & Separability index\\
+  TSTR & Train on synthetic, test on real\\
+  VAE & Variational autoencoder
+  \end{tabular}
+}
+
+\begin{document}
+\ppgccufmg{
+  autor={Oluwatoyin Joy Omole},
+  titulo={From Class Imbalance to Class Separability: Utility-Aware Synthetic Tabular Health Data},
+  cidade={Belo Horizonte},
+  ano={2026},
+  versao={Qualification},
+  orientador={To be confirmed},
+  resumo={resumo.tex},
+  abstracten={abstract.tex},
+  palavraschave={dados sintéticos; saúde; dados tabulares; desbalanceamento de classes; causalidade; privacidade},
+  keywords={synthetic data; health; tabular data; class imbalance; causality; privacy},
+  listadefiguras={sim},
+  listadetabelas={sim},
+  listascustomizadas={\glossario}
+}
+
+\input{chapters/01_introduction}
+\input{chapters/02_literature}
+\input{chapters/03_data}
+\input{chapters/04_methodology}
+\input{chapters/05_completed_work}
+\input{chapters/06_discussion}
+\input{chapters/07_future_work}
+\input{chapters/08_conclusion}
+
+\renewcommand\bibname{References}
+\bibliographystyle{plainnat}
+\bibliography{referencias}
+
+\begin{apendices}
+\input{chapters/appendix_audit}
+\end{apendices}
+\end{document}

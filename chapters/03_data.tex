@@ -1,0 +1,32 @@
+\chapter{Datasets and Preprocessing}
+\label{chap:data}
+
+\section{Vigitel health survey}
+
+Vigitel is Brazil's telephone-based surveillance system for risk and protective factors for chronic non-communicable diseases \citep{bernal2017}. The SepAware obesity experiments use a reproducible stratified sample of 5,000 rows from a 2006--2023 extract. The sample contains 4,149 non-obese and 851 obese records. The factorial experiment retains 15 predictors: age, sex, smoking, former smoking, inactivity, leisure physical activity, diabetes, hypertension, dyslipidaemia, dietary indicators, fruit/vegetable regularity, and schooling.
+
+\section{COVID-19 hospital mortality}
+
+The COVID-19 dataset contains 334 hospital records and 34 columns including the binary target \texttt{obito}. The executed experiment notes report 251 survivors and 83 deaths, an imbalance ratio of approximately 3.0:1. Predictors include age, sex, alcohol and tobacco indicators, admission-reason groups, number of comorbidities, and specific conditions such as hypertension, heart failure, coronary disease, chronic respiratory disease, diabetes, chronic kidney disease, cancer, cirrhosis, and HIV.
+
+The small sample and heterogeneous death class are scientifically important. A synthetic method can appear to improve separability by selecting an artificially homogeneous set of deaths; results must therefore be assessed on real held-out folds and interpreted with wide uncertainty.
+
+\begin{table}[htbp]
+\centering
+\caption{Datasets used in completed experiments. Counts are taken from executed repository outputs.}
+\label{tab:datasets}
+\begin{tabularx}{\textwidth}{lrrrX}
+\toprule
+Study dataset & $n$ & Positive & Negative & Primary use\\
+\midrule
+Vigitel obesity sample & 5,000 & 851 & 4,149 & SepAware selection and factorial TSTR\\
+COVID-19 mortality & 334 & 83 & 251 & SepAware and causal-anchor filtering\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Preprocessing and leakage control}
+
+Binary variables are normalised to $\{0,1\}$; 1/2-coded survey fields are mapped deterministically. Within each of five stratified folds, numerical missing values are median-imputed, binary fields use the modal category, and continuous variables are scaled using statistics fitted only on that fold's real training subset. CTGAN fitting, candidate scoring, selection, and classifier training also occur inside the fold. The corresponding real validation fold is used only for evaluation.
+
+Every completed predictive experiment reported in this manuscript uses five stratified folds. Within each factorial fold, one CTGAN generates a candidate pool five times the real training size; the same pool is scored under the four factorial selection regimes. This pairing reduces irrelevant generator variation between conditions, but overlapping training folds mean that the five fold scores are not independent laboratory replications. Chapter~\ref{chap:methodology} therefore reports blocked analysis and explicitly audits the independence limitation.
